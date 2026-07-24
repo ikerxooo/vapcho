@@ -1,20 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { SITE_PASSWORD, SITE_COOKIE } from "@/lib/config.server";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "images.pexels.com" },
+    ],
+  },
+};
 
-export async function POST(req: NextRequest) {
-  const { password } = await req.json();
-
-  if (password === SITE_PASSWORD) {
-    const res = NextResponse.json({ ok: true });
-    res.cookies.set(SITE_COOKIE, "1", {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 60 * 60 * 8, // 8 horas
-    });
-    return res;
-  }
-
-  return NextResponse.json({ ok: false }, { status: 401 });
-}
+module.exports = nextConfig;

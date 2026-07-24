@@ -1,35 +1,65 @@
-"use client";
+import type { Config } from "tailwindcss";
 
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { X, Sparkles } from "lucide-react";
+const config: Config = {
+  darkMode: "class",
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./context/**/*.{ts,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        ink: "#0C0D0F",
+        paper: "#FFFFFF",
+        mist: "#F5F5F7",
+        graphite: "#6E7178",
+        line: "#E6E6E9",
+        navy: "#0B1B3B",
+        navylight: "#16305F",
+        success: "#16A34A",
+        warning: "#EAB308",
+        error: "#DC2626",
+        accent: "#0B1B3B",
+      },
+      fontFamily: {
+        display: ["var(--font-display)"],
+        body: ["var(--font-body)"],
+      },
+      borderRadius: {
+        xl2: "1.25rem",
+        xl3: "1.75rem",
+      },
+      boxShadow: {
+        soft: "0 2px 20px -4px rgba(12,13,15,0.08)",
+        card: "0 10px 40px -12px rgba(12,13,15,0.18)",
+        lift: "0 24px 60px -18px rgba(11,27,59,0.35)",
+      },
+      keyframes: {
+        sweep: {
+          "0%": { transform: "translateX(-120%)" },
+          "100%": { transform: "translateX(120%)" },
+        },
+        shake: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "20%": { transform: "translateX(-6px)" },
+          "40%": { transform: "translateX(6px)" },
+          "60%": { transform: "translateX(-4px)" },
+          "80%": { transform: "translateX(4px)" },
+        },
+        fadeUp: {
+          "0%": { opacity: "0", transform: "translateY(16px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        sweep: "sweep 2.8s ease-in-out infinite",
+        shake: "shake 0.4s ease-in-out",
+        fadeUp: "fadeUp 0.6s ease forwards",
+      },
+    },
+  },
+  plugins: [],
+};
 
-export default function NewsBanner() {
-  const [visible, setVisible] = useState(true);
-
-  return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          className="overflow-hidden bg-navy text-white"
-        >
-          <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-6 py-2.5 text-sm">
-            <Sparkles className="h-3.5 w-3.5 shrink-0" />
-            <span>Nueva colección disponible — descubre las últimas incorporaciones</span>
-            <button
-              onClick={() => setVisible(false)}
-              aria-label="Cerrar aviso"
-              className="ml-3 rounded-full p-1 transition hover:bg-white/10"
-            >
-              <X className="h-3.5 w-3.5" />
-            </button>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
+export default config;
