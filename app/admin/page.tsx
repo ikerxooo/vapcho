@@ -3,6 +3,8 @@ import { ADMIN_COOKIE } from "@/lib/config.server";
 import LockScreen from "@/components/LockScreen";
 import AdminDashboard from "@/components/AdminDashboard";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   robots: { index: false, follow: false },
 };
