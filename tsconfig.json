@@ -1,0 +1,14 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { SITE_COOKIE } from "@/lib/config.server";
+import ProductDetail from "@/components/ProductDetail";
+
+export default function ProductPage({ params }: { params: { id: string } }) {
+  const authed = cookies().get(SITE_COOKIE)?.value === "1";
+
+  if (!authed) {
+    redirect("/");
+  }
+
+  return <ProductDetail id={params.id} />;
+}
